@@ -1,15 +1,21 @@
-// https://freetestapi.com/api/v1/books // internet page: https://freetestapi.com/apis/books
+export class BookService {
+  apiUrl: string;
 
-export async function getAllBooks(url: string): Promise<any> {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error("Unable to get Data");
+  constructor(apiUrl: string) {
+    this.apiUrl = apiUrl;
+  }
+
+  public async getAllBooks(): Promise<any> {
+    try {
+      const response = await fetch(this.apiUrl);
+      if (!response.ok) {
+        throw new Error("Unable to get Data");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Some Error Occurred:", error);
+      throw error;
     }
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Some Error Occured:", error);
   }
 }
