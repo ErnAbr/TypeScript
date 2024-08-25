@@ -1,26 +1,23 @@
-// https://freetestapi.com/api/v1/books // internet page: https://freetestapi.com/apis/books
-
 import { BookService } from "./services.js";
+import { RenderCards } from "./renderCards.js";
 
 class BookApp {
   private bookService: BookService;
+  private renderCards: RenderCards;
 
   constructor(bookService: BookService) {
     this.bookService = bookService;
+    this.renderCards = new RenderCards();
   }
 
   public async run(): Promise<void> {
     try {
       const books = await this.bookService.getAllBooks();
       console.log("Books:", books);
-      this.renderBooks(books);
+      this.renderCards.renderBooks(books);
     } catch (error) {
       console.error("Failed to load books:", error);
     }
-  }
-
-  private renderBooks(books: any[]): void {
-    throw new Error("Implement the Method");
   }
 }
 
